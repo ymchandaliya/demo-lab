@@ -18,3 +18,45 @@ then
 	new=$((new+1))
 fi
 awk -v line="$new" '{if(NR == line) print}' input.txt 	
+
+#!/bin/bash
+
+read
+n=$REPLY
+x=n
+d=0
+
+months=(31 28 31 30 31 30 31 31 30 31 30 31)
+
+d=$((d+$((x%10))))
+x=$((x/10))
+d=$((d*10))
+
+d=$((d+$((x%10))))
+x=$((x/10))
+
+m=$((m+$((x%10))))
+x=$((x/10))
+m=$((m*10))
+
+m=$((m+$((x%10))))
+x=$((x/10))
+echo $m $d
+#echo $months[$((m-1))]
+i=$((m-1))
+echo "${months[i]}"
+if [ $m -lt 13 ] && [ $m -ne 0 ] && [ $d -ne 0 ] && [ "${months[i]}" -ge "$d" ]
+then
+	if [ $d -gt 9 ] && [ $m -gt 9 ]
+	then
+	echo $d "-" $m "-" $n
+	else if [ $d -gt 9 ] && [ $m -lt 10 ]
+	then
+		echo $d "-0" $m "-" $n
+	else
+		echo $d "-" $m "-" $n
+	fi
+else
+	echo "No palindrome is available this year"
+fi
+
